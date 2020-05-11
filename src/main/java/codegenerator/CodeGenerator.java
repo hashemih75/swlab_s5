@@ -264,14 +264,14 @@ public class CodeGenerator {
     }
 
     public void add() {
-        this.addAndSub(Operation.ADD, "add");
+        this.addSubMult(Operation.ADD, "add");
     }
 
     public void sub() {
-        this.addAndSub(Operation.SUB, "sub");
+        this.addSubMult(Operation.SUB, "sub");
     }
 
-    public void addAndSub(Operation op, String message) {
+    public void addSubMult(Operation op, String message) {
         Address temp = new Address(memory.getTemp(), VarType.Int);
         Address s2 = ss.pop();
         Address s1 = ss.pop();
@@ -283,15 +283,7 @@ public class CodeGenerator {
     }
 
     public void mult() {
-        Address temp = new Address(memory.getTemp(), VarType.Int);
-        Address s2 = ss.pop();
-        Address s1 = ss.pop();
-        if (s1.varType != VarType.Int || s2.varType != VarType.Int) {
-            Utility.printError("In mult two operands must be integer");
-        }
-        memory.add3AddressCode(Operation.MULT, s1, s2, temp);
-//        memory.saveMemory();
-        ss.push(temp);
+        addSubMult(Operation.MULT, "mult");
     }
 
     public void label() {
