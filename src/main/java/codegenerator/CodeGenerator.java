@@ -68,7 +68,7 @@ public class CodeGenerator {
         else if (func == 19)
             equal();
         else if (func == 20)
-            less_than();
+            lessThan();
         else if (func == 21)
             and();
         else if (func == 22)
@@ -330,7 +330,7 @@ public class CodeGenerator {
         ss.push(temp);
     }
 
-    public void less_than() {
+    public void lessThan() {
         Address temp = new Address(memory.getTemp(), VarType.Bool);
         Address s2 = ss.pop();
         Address s1 = ss.pop();
