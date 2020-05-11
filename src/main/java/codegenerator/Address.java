@@ -21,13 +21,13 @@ public class Address {
     }
     public String toString(){
         switch (type){
-            case Direct:
-                return num+"";
             case Indirect:
                 return "@"+num;
             case Imidiate:
                 return "#"+num;
+            case Direct:
+            default:
+                return num+"";
         }
-        return num+"";
     }
 }
