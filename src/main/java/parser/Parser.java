@@ -8,9 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import Log.Log;
 import facade.CodeGeneratorFacade;
-import errorHandler.ErrorHandler;
+import utility.Utility;
 import scanner.LexicalAnalyzer;
 import scanner.token.Token;
 
@@ -48,11 +47,11 @@ public class Parser {
     Action currentAction;
     while (!finish) {
       try {
-        Log.print(/*"lookahead : "+*/ lookAhead.toString() + "\t" + parsStack.peek());
-//                Log.print("state : "+ parsStack.peek());
+        Utility.print(/*"lookahead : "+*/ lookAhead.toString() + "\t" + parsStack.peek());
+//                Utility.print("state : "+ parsStack.peek());
         currentAction = parseTable.getActionTable(parsStack.peek(), lookAhead);
-        Log.print(currentAction.toString());
-        //Log.print("");
+        Utility.print(currentAction.toString());
+        //Utility.print("");
 
         switch (currentAction.action) {
           case shift:
@@ -66,22 +65,22 @@ public class Parser {
               parsStack.pop();
             }
 
-            Log.print(/*"state : " +*/ parsStack.peek() + "\t" + rule.LHS);
-//                        Log.print("LHS : "+rule.LHS);
+            Utility.print(/*"state : " +*/ parsStack.peek() + "\t" + rule.LHS);
+//                        Utility.print("LHS : "+rule.LHS);
             parsStack.push(parseTable.getGotoTable(parsStack.peek(), rule.LHS));
-            Log.print(/*"new State : " + */parsStack.peek() + "");
-//                        Log.print("");
+            Utility.print(/*"new State : " + */parsStack.peek() + "");
+//                        Utility.print("");
             try {
               cg.semanticFunction(rule.semanticAction, lookAhead);
             } catch (Exception e) {
-              Log.print("Code Genetator Error");
+              Utility.print("Code Genetator Error");
             }
             break;
           case accept:
             finish = true;
             break;
         }
-        Log.print("");
+        Utility.print("");
 
       } catch (Exception ignored) {
 
@@ -105,7 +104,7 @@ public class Parser {
 
 
     }
-    if (!ErrorHandler.hasError)
+    if (!Utility.hasError)
       cg.printMemory();
 
 
